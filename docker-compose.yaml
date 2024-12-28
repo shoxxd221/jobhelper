@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  db:
+    container_name: "db"
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+    ports:
+      - "5432:5432"
+  fastapi:
+    container_name: "fastapi"
+    build: .
+    restart: always
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
