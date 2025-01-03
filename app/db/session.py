@@ -1,8 +1,8 @@
+from datetime import datetime
 from typing import AsyncGenerator
 
-from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
 
 import settings
 
@@ -26,7 +26,7 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
 
 
 class Base(DeclarativeBase):
-    id = Column(Integer, primary_key=True)
-    url = Column(String, nullable=False)
-    date_publication = Column(DateTime, nullable=False)
-    title = Column(String, nullable=False)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    url: Mapped[str]
+    date_publication: Mapped[datetime]
+    title: Mapped[str]
