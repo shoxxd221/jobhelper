@@ -1,10 +1,11 @@
 from db.session import Base
 
-from sqlalchemy import Column, Boolean, Text
+from sqlalchemy import Text
+from sqlalchemy.orm import Mapped, mapped_column
 
 
 class YCRVacancies(Base):
     __tablename__ = 'YCRVacancies'
 
-    active = Column(Boolean, nullable=False)
-    description = Column(Text, nullable=False)
+    active: Mapped[bool]
+    description: Mapped[str] = mapped_column(Text)
